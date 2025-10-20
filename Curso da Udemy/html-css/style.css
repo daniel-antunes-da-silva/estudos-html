@@ -1,0 +1,62 @@
+
+h1, h2, h3, h4, p, li {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    color: blue;
+    font-size: 36px;
+    text-transform: uppercase;
+    font-style: italic;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 25px;
+}
+
+h4 {
+    font-size: 20px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+li {
+    font-size: 16px;
+}
+
+/* footer p {
+    font-size: 14px;
+} */
+
+/* Jeito ruim de fazer
+article header p {
+    font-style: italic;
+}
+*/
+
+#author {
+    font-style: italic;
+    font-size: 16px;
+}
+
+#copyright {
+    font-size: 14px;
+}
+
+.related-author {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.related {
+    list-style: none;
+}
