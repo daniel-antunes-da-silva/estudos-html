@@ -83,3 +83,25 @@ aside {
 body {
     background-color: #fafafa;
 }
+
+/* .first-li {
+    font-weight: bold;
+} */
+
+li:first-child {
+    font-weight: bold;
+}
+
+li:last-child {
+    font-style: italic;
+}
+
+li:nth-child(even) {
+    /* color: red; */
+}
+
+/* Isso não funciona. */
+article p:first-child {
+    /* color: red; */
+}
+
