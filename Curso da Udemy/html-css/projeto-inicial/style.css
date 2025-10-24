@@ -12,14 +12,22 @@ body {
 
 }
 
+.container {
+    width: 700px;
+    /* margin-left: auto;
+    margin-right: auto; */
+    margin: 0 auto;
+}
+
 .main-header {
-    background-color: #f7f7f7;
+    background-color: #f3f3f3;
     /* padding: 20px;
     padding-left: 40px;
     padding-right: 40px; */
     /* Abaixo, um atalho que aplica 20px para top e bottom, e 40 para left and right. */
     padding: 20px 40px;
     margin-bottom: 60px;
+    height: 80px;
 }
 
 nav {
@@ -35,7 +43,6 @@ article {
 }    
 
 
-
 aside {
     background-color: #f7f7f7;
     border-top: 5px solid #1098ad;
@@ -43,6 +50,9 @@ aside {
     /* padding-top: 50px;
     padding-bottom: 50px; */
     padding: 50px 0;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h1, h2, h3 {
@@ -175,6 +185,13 @@ a:active {
     background-color: black;
     font-style: italic;
 }
+
+.post-image {
+    /* Tamanho do container pai */
+    width: 100%;
+    height: auto;
+}
+
 
 /* Resolvendo conflitos */
 /* #copyright {
