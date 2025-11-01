@@ -34,7 +34,7 @@ body {
 
 nav {
     font-size: 18px;
-    text-align: center;
+    /* text-align: center; */
 }
 
 article {
@@ -243,7 +243,7 @@ h2 {
     position: relative;
 }
 
-h2::after {
+h2::before {
     content: "TOP";
     background-color: #ffe70e;
     color: #000;
@@ -256,7 +256,9 @@ h2::after {
     right: -25px;
 }
 
-
+.main-header nav a:link{
+    margin-top: 100px;
+}
 
 /* Resolvendo conflitos */
 /* #copyright {
