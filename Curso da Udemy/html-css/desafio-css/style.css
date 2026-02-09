@@ -132,3 +132,21 @@ a:link, a:visited {
 a:link:hover, a:active {
     text-decoration: none;
 }
+
+.produto {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 30px;
+}
+
+.camera {
+    width: 250px;
+}
+
+.titulo-produto {
+    grid-column: 1 / -1;
+}
+
+.carrinho {
+    grid-column: 1 / -1;
+}
