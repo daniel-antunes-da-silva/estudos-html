@@ -1,0 +1,73 @@
+O tailwind utiliza a métrica REM onde:
+
+1 rem = 16px
+
+m-0 = 0px
+m-1 = 1px
+m-2 = 8px
+m-4 = 4x 0.25rem 16px
+m-8 = 2 rem => 32px
+
+mb ou mt = margem top
+
+margem apenas nas 2 laterais: mx (eixo x).
+margem em cima e em baixo: my (eixo y).
+
+gap-4
+
+m-auto = margem automática
+
+------------- Cores -----------
+
+Caso queira especificar a cor com HEXADECIMAL:
+
+class="bg-[#f0f0f0]"
+
+Paleta de cores:
+https://tailwindcss.com/docs/colors
+
+
+--------- TEXTOS --------------
+
+Para textos (TAMANHOS DE TEXTO - font-size):
+text-sm, text-xl, text-2xl, text-base...
+
+    <h1 class="text-green-600 text-6xl underline">
+
+https://tailwindcss.com/docs/font-size
+
+
+Letter-spacing:
+
+https://tailwindcss.com/docs/letter-spacing
+
+Caso queira mudar line height, utilizar classe leading.
+
+
+
+------- height e width -----
+Para fazer ocupar a tela toda:
+
+w-screen, h-screen
+
+Assim, a largura e a altura aplicados será do tamanho disponível na tela.
+
+
+-------- ESTADO E PROPRIEDADE -------- 
+
+Exemplo de um botão, primeiro vem o estado:propriedade. Exemplo:
+
+hover:bg-red-200 disabled:bg-purple-300 hover:scale-200
+
+-------- MEDIA QUERY -----------
+
+Como fazer mobile first no tailwind css:
+
+        <h1 class="text-green-600 text-lg md:text-2xl lg:text-4xl underline font-medium tracking-widest leading-20">
+
+        No exemplo acima, o texto padrão do mobile será o text-lg. O que vem em seguida, "md:text-2xl" seria para um tamanho médio (de tablet), por isso o md. E o que vem depois disso (lg:text-4xl), seria o tamanho grande, como tela de computador.
+
+        Dessa forma, garante q as propriedades de texto maiores só sejam aplicadas se o tamanho da tela for medium ou large.
+
+
+
