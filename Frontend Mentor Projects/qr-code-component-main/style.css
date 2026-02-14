@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.attribution {
+    font-size: 11px;
+    /* text-align: center;  */
+}
+.attribution a {
+    color: hsl(228, 45%, 44%); 
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: hsl(212, 45%, 89%);
+    font-size: 15px;
+    font-family: "Outfit", sans-serif;
+    color: hsl(216, 15%, 48%);
+    padding: 16px;
+}
+
+h1 {
+    font-family: "Outfit", sans-serif;
+    font-size: 22px;
+    color: hsl(218, 44%, 22%);
+    margin-bottom: 20px;
+    padding: 0 16px;
+    font-weight: 700;
+    -webkit-text-stroke: 1px black;
+}
+
+
+.qrcode-card {
+    margin-bottom: 16px;
+    max-width: 320px;
+    /* min-height: 499px; */
+    padding: 16px 16px 40px 16px;
+    font-weight: 400;
+    /* align-content: center; */
+    text-align: center;
+    /* height: 100%; */
+    width: 100%;
+    border-radius: 20px;
+    background-color: #FFF;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.qrcode-card p {
+    padding: 0 28px;
+}
+
+.qrcode-card img {
+    max-width: 100%;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+

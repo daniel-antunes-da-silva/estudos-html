@@ -103,6 +103,36 @@
 
 // console.log(typeof array1) // object
 
+// OBJECTS
+
+// const student = { "name": "John", "yearOfBirth": 1980, "country": "Italy" }
+// console.log(student)
+// console.log(student["name"])
+// console.log(student.name)
+
+// // Para acessar novos campos ao objeto:
+
+// student.id = "88b5";
+// console.log(student)
+
+// // Array of objects:
+
+// const student1 = { "name": "John", "age": 23 }
+// const student2 = { "name": "Sarah", "age": 19 }
+
+// const students = [student1, student2]
+// console.log(students)
+
+
+// TIPOS NULOS E UNDEDFINED
+
+// O javascript considera o tipo null e undefined como o mesmo valor.
+// PORÉM, O TIPO DELES NÃO É O MESMO. Se verificar se o undefined === null, retornará FALSE.
+// Ou seja, O VALOR é o mesmo, mas o TIPO é diferente.
+
+console.log(typeof null) // object
+console.log(typeof undefined) // undefined
+
 // SEÇÃO DO MENU
 
 
@@ -126,5 +156,3 @@ let weatherText = `The weather is ${weatherCondition} in ${userLocation} and it'
 console.log(weatherText)
 
 document.getElementById("weather").innerText = weatherText;
-
-aaaaaaaaaaaa
