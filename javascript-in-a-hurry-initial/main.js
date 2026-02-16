@@ -130,8 +130,8 @@
 // PORÉM, O TIPO DELES NÃO É O MESMO. Se verificar se o undefined === null, retornará FALSE.
 // Ou seja, O VALOR é o mesmo, mas o TIPO é diferente.
 
-console.log(typeof null) // object
-console.log(typeof undefined) // undefined
+// console.log(typeof null) // object
+// console.log(typeof undefined) // undefined
 
 // SEÇÃO DO MENU
 
@@ -147,12 +147,60 @@ document.querySelector("#close-nav-menu").addEventListener("click", function () 
 
 // Seção de cumprimento (greeting section)
 
+function celsiusToFahr(temperature) {
+    let fahr = (temperature * 9 / 5) + 32;
+    return fahr;
+}
+
+// celsiusToFahr(25);
+
 const greetingText = "Good morning!";
 const weatherCondition = "Sunny";
 const userLocation = "Rio de Janeiro";
-let temperature = 38.8673;
-let weatherText = `The weather is ${weatherCondition} in ${userLocation} and it's ${temperature.toFixed(1)}ºC outside.`
+let temperature = 38.86;
 
-console.log(weatherText)
+let celsiusText = `The weather is ${weatherCondition} in ${userLocation} and it's ${temperature.toFixed(1)}ºC outside.`
+let fahrText = `The weather is ${weatherCondition} in ${userLocation} and it's ${celsiusToFahr(temperature.toFixed(1))}ºF outside.`
 
-document.getElementById("weather").innerText = weatherText;
+document.getElementById("weather").innerText = celsiusText;
+document.getElementById("greeting").innerText = greetingText;
+
+
+document.querySelector(".weather-group").addEventListener("click", function (event) {
+    if (event.target.id == "fahr") {
+        document.getElementById("weather").innerText = fahrText;
+    } else {
+        document.getElementById("weather").innerText = celsiusText;
+    }
+});
+
+
+// ----------- DATETYPES ------------
+
+// new Date()
+// Sun Feb 15 2026 11:59:53 GMT-0300 (Horário Padrão de Brasília)
+// new Date("2026-02-10")
+// Mon Feb 09 2026 21:00:00 GMT-0300 (Horário Padrão de Brasília)
+// shippingDate = new Date("2026-02-10")
+// Mon Feb 09 2026 21:00:00 GMT-0300 (Horário Padrão de Brasília)
+// deliveryDate = new Date("2026-02-15");
+// Sat Feb 14 2026 21:00:00 GMT-0300 (Horário Padrão de Brasília)
+// deliveryDate - shippingDate
+// 432000000 (VALOR EM MILISSEGUNDOS)
+
+// 1000 * 60 * 60 * 24
+// 86400000 // VALOR EM MILISSEGUNDOS CORRESPONDENTE A UM DIA
+// 432000000 / 86400000
+// 5 DIAS
+
+// ----------------------------------------------------
+
+function updateLocalTime() {
+    date = new Date();
+    console.log(date.getHours())
+    document.querySelector("span[data-time='hours']").innerText = date.getHours();
+    document.querySelector("span[data-time='minutes']").innerText = date.getMinutes();
+    document.querySelector("span[data-time='seconds']").innerText = date.getSeconds();
+}
+
+setInterval(updateLocalTime, 1000);
