@@ -133,47 +133,76 @@
 // console.log(typeof null) // object
 // console.log(typeof undefined) // undefined
 
+
+const galleryImages = [
+    {
+        src: "./assets/gallery/image1.jpg",
+        alt: "Thumbnail Image 1",
+    },
+    {
+        src: "./assets/gallery/image2.jpg",
+        alt: "Thumbnail Image 2",
+    },
+    {
+        src: "./assets/gallery/image3.jpg",
+        alt: "Thumbnail Image 3"
+    }
+];
+
+
 // SEÇÃO DO MENU
 
-
-document.querySelector("#open-nav-menu").addEventListener("click", function () {
-    document.querySelector("header nav .wrapper").classList.add("nav-open")
-});
-
-document.querySelector("#close-nav-menu").addEventListener("click", function () {
-    document.querySelector("header nav .wrapper").classList.remove("nav-open")
-})
-
-
-// Seção de cumprimento (greeting section)
+function menuHandler() {
+    document.querySelector("#open-nav-menu").addEventListener("click", function () {
+        document.querySelector("header nav .wrapper").classList.add("nav-open")
+    });
+    
+    document.querySelector("#close-nav-menu").addEventListener("click", function () {
+        document.querySelector("header nav .wrapper").classList.remove("nav-open")
+    })
+}    
 
 function celsiusToFahr(temperature) {
     let fahr = (temperature * 9 / 5) + 32;
     return fahr;
 }
 
-// celsiusToFahr(25);
-
-const greetingText = "Good morning!";
-const weatherCondition = "Sunny";
-const userLocation = "Rio de Janeiro";
-let temperature = 38.86;
-
-let celsiusText = `The weather is ${weatherCondition} in ${userLocation} and it's ${temperature.toFixed(1)}ºC outside.`
-let fahrText = `The weather is ${weatherCondition} in ${userLocation} and it's ${celsiusToFahr(temperature.toFixed(1))}ºF outside.`
-
-document.getElementById("weather").innerText = celsiusText;
-document.getElementById("greeting").innerText = greetingText;
-
-
-document.querySelector(".weather-group").addEventListener("click", function (event) {
-    if (event.target.id == "fahr") {
-        document.getElementById("weather").innerText = fahrText;
+// Seção de cumprimento (greeting section)
+function greetingHandler() {
+    let currentHour = new Date().getHours();
+    let greetingText;
+    
+    if (currentHour < 12) {
+        greetingText = "Good Morning!";
+    } else if (currentHour < 18) {
+        greetingText = "Good Afternoon!";
+    } else if (currentHour < 24) {
+        greetingText = "Good Evening!";
     } else {
-        document.getElementById("weather").innerText = celsiusText;
+        greetingText = "Welcome!";
     }
-});
 
+    const weatherCondition = "Sunny";
+    const userLocation = "Rio de Janeiro";
+    let temperature = 38.86;
+    
+    let celsiusText = `The weather is ${weatherCondition} in ${userLocation} and it's ${temperature.toFixed(1)}ºC outside.`
+    let fahrText = `The weather is ${weatherCondition} in ${userLocation} and it's ${celsiusToFahr(temperature.toFixed(1))}ºF outside.`
+    
+    document.getElementById("weather").innerText = celsiusText;
+    document.getElementById("greeting").innerText = greetingText;
+    
+    document.querySelector(".weather-group").addEventListener("click", function (event) {
+        if (event.target.id == "fahr") {
+            document.getElementById("weather").innerText = fahrText;
+        } else {
+            document.getElementById("weather").innerText = celsiusText;
+        }
+    });
+}
+
+
+// celsiusToFahr(25);
 
 // ----------- DATETYPES ------------
 
@@ -195,66 +224,75 @@ document.querySelector(".weather-group").addEventListener("click", function (eve
 
 // ----------------------------------------------------
 
-function updateLocalTime() {
-    date = new Date();
-    // Forma mais ccorreta de adionar zero na frente. Isso garante q sempre tenha 2 digitos, e quando nao tiver, vai add zero.
-    hours = date.getHours().toString().padStart(2, "0");
-    minutes = date.getMinutes().toString().padStart(2, "0");
-    seconds = date.getSeconds().toString().padStart(2, "0");
-    // Adiicionando zero quando é menor que 10, para manter consistênia no layout. Ex: 01, 02, 03 segundos...
-    // if (hours < 10) {
-    //     hours = `0${hours}` 
-    // }
-    // if (minutes < 10) {
-    //     minutes = `0${minutes}` 
-    // }
-    // if (seconds < 10) {
-    //     seconds = `0${seconds}` 
-    // }
-    document.querySelector("span[data-time='hours']").innerText = hours;
-    document.querySelector("span[data-time='minutes']").innerText = minutes;
-    document.querySelector("span[data-time='seconds']").innerText = seconds;
+// LOCALTIME SECTION
+
+function clockHandler() {
+    function updateLocalTime() {
+        date = new Date();
+        // Forma mais ccorreta de adionar zero na frente. Isso garante q sempre tenha 2 digitos, e quando nao tiver, vai add zero.
+        hours = date.getHours().toString().padStart(2, "0");
+        minutes = date.getMinutes().toString().padStart(2, "0");
+        seconds = date.getSeconds().toString().padStart(2, "0");
+        // Adiicionando zero quando é menor que 10, para manter consistênia no layout. Ex: 01, 02, 03 segundos...
+        // if (hours < 10) {
+        //     hours = `0${hours}` 
+        // }
+        // if (minutes < 10) {
+        //     minutes = `0${minutes}` 
+        // }
+        // if (seconds < 10) {
+        //     seconds = `0${seconds}` 
+        // }
+        document.querySelector("span[data-time='hours']").innerText = hours;
+        document.querySelector("span[data-time='minutes']").innerText = minutes;
+        document.querySelector("span[data-time='seconds']").innerText = seconds;
+    }
+    
+    setInterval(updateLocalTime, 1000);
 }
 
-setInterval(updateLocalTime, 1000);
 
-animal = {"name": "dog", "color": "white"}
+
+// animal = {"name": "dog", "color": "white"}
 
 // Seção da galeria
-
-const galleryImages = [
-    {
-        src: "./assets/gallery/image1.jpg",
-        alt: "Thumbnail Image 1",
-    },
-    {
-        src: "./assets/gallery/image2.jpg",
-        alt: "Thumbnail Image 2",
-    },
-    {
-        src: "./assets/gallery/image3.jpg",
-        alt: "Thumbnail Image 3"
-    }
-];
+function galleryHandler() {
+    let mainImage = document.querySelector("#gallery > img");
+    let thumbnails = document.querySelector("#gallery .thumbnails");
+    
+    mainImage.src = galleryImages[0].src;
+    mainImage.alt = galleryImages[0].alt;
+    
+    galleryImages.forEach(function (image, index) {
+        let thumb = document.createElement("img");
+        thumb.src = image.src;
+        thumb.alt = image.alt;
+        thumb.dataset.arrayIndex = index;
+        thumb.dataset.selected = index === 0 ? true : false;
+    
+        thumb.addEventListener("click", function (event) {
+            let selectedIndex = event.target.dataset.arrayIndex;
+            let selectedImage = galleryImages[selectedIndex];
+            mainImage.src = selectedImage.src;
+            mainImage.alt = selectedImage.alt;
+            
+            // Desmarcar todas as imagens
+            thumbnails.querySelectorAll("img").forEach(function (img) {
+                img.dataset.selected = false;
+            });
+    
+            // Marcar a imagem que o usuário clicou, após ter desmarcado todas anteriormente.
+            thumb.dataset.selected = true;
+        });
+    
+        thumbnails.appendChild(thumb);
+    });
+}
 
 // for (let i in galleryImages) {
 //     console.log(galleryImages[i]);
 // }
 
-let mainImage = document.querySelector("#gallery > img");
-let thumbnails = document.querySelector("#gallery .thumbnails");
-
-mainImage.src = galleryImages[0].src;
-mainImage.alt = galleryImages[0].alt;
-
-galleryImages.forEach(function (image, index) {
-    let thumb = document.createElement("img");
-    thumb.src = image.src;
-    thumb.alt = image.alt;
-    thumb.dataset.arrayIndex = index;
-    thumb.dataset.selected = false;
-    thumbnails.appendChild(thumb);
-});
 
 // ESSE BLOCO DE CÓDIGO FAZ COM Q AS IMAGENS SEJAM SELECIONADAS AO CLICAR NELAS
 // document.querySelector(".thumbnails").addEventListener("click", function (event) {
@@ -269,3 +307,10 @@ galleryImages.forEach(function (image, index) {
 //         }
 // });
 // });
+
+
+// Page load
+menuHandler();
+greetingHandler();
+clockHandler();
+galleryHandler();
