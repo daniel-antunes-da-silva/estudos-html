@@ -231,36 +231,45 @@ function greetingHandler() {
 function weatherHandler() {
     // Pegando latitude e longituded
     navigator.geolocation.getCurrentPosition(async position => {
-        let latitude = position.coords.latitude;
-        let longitude = position.coords.longitude;
-        const response = await fetch(`http://127.0.0.1:8000/weather`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                "latitude": latitude,
-                "longitude": longitude
-            })
-        });
+        try {
+            let latitude = position.coords.latitude;
+            let longitude = position.coords.longitude;
+            const response = await fetch(`http://127.0.0.1:8000/weather`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    "latitude": latitude,
+                    "longitude": longitude
+                })
+            });
 
-        const resultado = await response.json();
-        console.log(resultado);
-        const description = resultado.description;
-        const location = resultado.city;
-        let temperature = resultado.temperature;
-
-         let celsiusText = `The weather is ${description} in ${location} and it's ${temperature.toFixed(1)}ºC outside.`
-        let fahrText = `The weather is ${description} in ${location} and it's ${celsiusToFahr(temperature.toFixed(1))}ºF outside.`
-    
-         document.getElementById("weather").innerText = celsiusText;
-    
-        document.querySelector(".weather-group").addEventListener("click", function (event) {
-            if (event.target.id == "fahr") {
-                document.getElementById("weather").innerText = fahrText;
-            } else {
-                document.getElementById("weather").innerText = celsiusText;
+            if (!response.ok) {
+                throw new Error("API error");
             }
-        });
-
+    
+            const resultado = await response.json();
+            console.log(resultado);
+            const description = resultado.description;
+            const location = resultado.city;
+            let temperature = resultado.temperature;
+    
+            let celsiusText = `The weather is ${description} in ${location} and it's ${temperature.toFixed(1)}ºC outside.`
+            let fahrText = `The weather is ${description} in ${location} and it's ${celsiusToFahr(temperature.toFixed(1))}ºF outside.`
+        
+                document.getElementById("weather").innerText = celsiusText;
+        
+            document.querySelector(".weather-group").addEventListener("click", function (event) {
+                if (event.target.id == "fahr") {
+                    document.getElementById("weather").innerText = fahrText;
+                } else {
+                    document.getElementById("weather").innerText = celsiusText;
+                }
+            });
+        } catch {
+            document.querySelector("p#weather").innerText = "Unable to get the weather info. Try again later.";
+        }
+    }, error => {
+        document.querySelector("p#weather").innerText = "Unable to get the weather info. Try again later or check if location is allowed."
     });
 }
 
