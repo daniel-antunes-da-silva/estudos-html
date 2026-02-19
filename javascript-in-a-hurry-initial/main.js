@@ -133,6 +133,44 @@
 // console.log(typeof null) // object
 // console.log(typeof undefined) // undefined
 
+const products = [
+    {
+        title: "AstroFiction",
+        author: "John Doe",
+        price: 49.9,
+        image: "./assets/products/img6.png"
+    },
+    {
+        title: "Space Odissey",
+        author: "Marie Anne",
+        price: 35,
+        image: "./assets/products/img1.png"
+    },
+    {
+        title: "Doomed City",
+        author: "Jason Cobert",
+        price: 0,
+        image: "./assets/products/img2.png"
+    },
+    {
+        title: "Black Dog",
+        author: "John Doe",
+        price: 85.35,
+        image: "./assets/products/img3.png"
+    },
+    {
+        title: "My Little Robot",
+        author: "Pedro Paulo",
+        price: 0,
+        image: "./assets/products/img5.png"
+    },
+    {
+        title: "Garden Girl",
+        author: "Ankit Patel",
+        price: 45,
+        image: "./assets/products/img4.png"
+    }
+];
 
 const galleryImages = [
     {
@@ -162,12 +200,15 @@ function menuHandler() {
     })
 }    
 
+// Temperature conversion
+
 function celsiusToFahr(temperature) {
     let fahr = (temperature * 9 / 5) + 32;
     return fahr;
 }
 
 // Seção de cumprimento (greeting section)
+
 function greetingHandler() {
     let currentHour = new Date().getHours();
     let greetingText;
@@ -182,25 +223,46 @@ function greetingHandler() {
         greetingText = "Welcome!";
     }
 
-    const weatherCondition = "Sunny";
-    const userLocation = "Rio de Janeiro";
-    let temperature = 38.86;
-    
-    let celsiusText = `The weather is ${weatherCondition} in ${userLocation} and it's ${temperature.toFixed(1)}ºC outside.`
-    let fahrText = `The weather is ${weatherCondition} in ${userLocation} and it's ${celsiusToFahr(temperature.toFixed(1))}ºF outside.`
-    
-    document.getElementById("weather").innerText = celsiusText;
     document.getElementById("greeting").innerText = greetingText;
     
-    document.querySelector(".weather-group").addEventListener("click", function (event) {
-        if (event.target.id == "fahr") {
-            document.getElementById("weather").innerText = fahrText;
-        } else {
-            document.getElementById("weather").innerText = celsiusText;
-        }
-    });
 }
 
+
+function weatherHandler() {
+    // Pegando latitude e longituded
+    navigator.geolocation.getCurrentPosition(async position => {
+        let latitude = position.coords.latitude;
+        let longitude = position.coords.longitude;
+        const response = await fetch(`http://127.0.0.1:8000/weather`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                "latitude": latitude,
+                "longitude": longitude
+            })
+        });
+
+        const resultado = await response.json();
+        console.log(resultado);
+        const description = resultado.description;
+        const location = resultado.city;
+        let temperature = resultado.temperature;
+
+         let celsiusText = `The weather is ${description} in ${location} and it's ${temperature.toFixed(1)}ºC outside.`
+        let fahrText = `The weather is ${description} in ${location} and it's ${celsiusToFahr(temperature.toFixed(1))}ºF outside.`
+    
+         document.getElementById("weather").innerText = celsiusText;
+    
+        document.querySelector(".weather-group").addEventListener("click", function (event) {
+            if (event.target.id == "fahr") {
+                document.getElementById("weather").innerText = fahrText;
+            } else {
+                document.getElementById("weather").innerText = celsiusText;
+            }
+        });
+
+    });
+}
 
 // celsiusToFahr(25);
 
@@ -251,8 +313,6 @@ function clockHandler() {
     setInterval(updateLocalTime, 1000);
 }
 
-
-
 // animal = {"name": "dog", "color": "white"}
 
 // Seção da galeria
@@ -289,6 +349,120 @@ function galleryHandler() {
     });
 }
 
+// Products Section
+
+function addElements(elementType, classList, textContent) {
+    let element = document.createElement(elementType);
+    element.classList.add(classList);
+    if (textContent !== undefined) {
+        element.textContent = textContent;
+    }
+    return element;
+}
+
+function populateProducts(productList) {
+    let productsSection = document.querySelector(".products-area");
+    productsSection.innerHTML = "";
+    // Run a loop through the products and create a html element ("product-item") for each of them
+    productList.forEach(function (product, index) {
+        if (product.price > 0) {
+            product.price = `$${product.price.toFixed(2)}`;
+        } else {
+            product.price = "Free";
+        }
+
+        // Create the HTML element for the individual product 
+        let productElm = addElements("div", "product-item") 
+
+        // Create the product image
+        let productImg = document.createElement("img");
+        productImg.src = product.image;
+        productImg.alt = "Image for" + product.title;
+
+        // Create the product detail section
+        let productDetails = addElements("div", "product-details");
+
+        // Create product title, author, price-title and price.
+        let productTitle = addElements("h3", "product-title", product.title);
+        let productAuthor = addElements("p", "product-author", product.author);
+        let priceTitle = addElements("p", "price-title", "Price");
+        let productPrice = addElements("p", "product-price", product.price);
+
+        // Append the product details
+        productDetails.append(productTitle);
+        productDetails.append(productAuthor);
+        productDetails.append(priceTitle);
+        productDetails.append(productPrice);
+
+        // Add all child HTML elements of the product
+        productElm.append(productImg);
+        productElm.append(productDetails)
+        
+        // Add complete individual product to the product section
+        productsSection.append(productElm);
+    });
+}
+
+/* <div class="product-item">
+    <img src="./assets/products/img6.png" alt="AstroFiction">
+    <div class="product-details">
+        <h3 class="product-title">AstroFiction</h3>
+        <p class="product-author">John Doe</p>
+        <p class="price-title">Price</p>
+        <p class="product-price">$ 49.90</p>
+    </div>
+</div> */
+
+function addElements(elementType, classList, textContent) {
+    let element = document.createElement(elementType);
+    element.classList.add(classList);
+    if (textContent !== undefined) {
+        element.textContent = textContent;
+    }
+    return element;
+}
+
+function productsHandler() {
+    let freeProducts = products.filter(item => !item.price || item.price <= 0);
+    let paidProducts = products.filter(item => item.price > 0);
+    // Esse bloco acima é o mesmo que foi feito abaixo, porém de forma mais modedrna.
+    // Nesse caso, o arrow function remove a necessidade do "function", e também não precisa do RETURN, já que há apenas um statement.
+    // let freeProducts = products.filter(function (item) {
+    //     return !item.price || item.price <= 0;
+    // });
+    // let paidProducts = products.filter(function (item) {
+    // return item.price > 0;
+    // });
+
+    console.log("Free: ", freeProducts);
+    console.log("Paid: ", paidProducts);
+
+    populateProducts(products);
+
+    document.querySelector(".products-filter label[for=all] span.product-amount").textContent = products.length;
+    document.querySelector(".products-filter label[for=paid] span.product-amount").textContent = paidProducts.length;
+    document.querySelector(".products-filter label[for=free] span.product-amount").textContent = freeProducts.length;
+
+    let producstsFilter = document.querySelector(".products-filter");
+    producstsFilter.addEventListener("click", function (event) {
+        console.log(event.target.id)
+        if (event.target.id === "paid") {
+            populateProducts(paidProducts);
+        } else if (event.target.id === "free") {
+            populateProducts(freeProducts);
+        } else if (event.target.id === "all") {
+            populateProducts(products);
+        }
+    });
+}
+
+// let numbers = [1, 2, 3, 4, 5, 6, 7, 8]
+// let greaterThan4 = numbers.filter(function (number) {
+//     return number > 4;
+// });
+// console.log(greaterThan4)
+// Page load
+
 // for (let i in galleryImages) {
 //     console.log(galleryImages[i]);
 // }
@@ -310,7 +484,19 @@ function galleryHandler() {
 
 
 // Page load
+
+function footerHandler() {
+    // © 2026 - All rights reserved
+    currentYear = new Date().getFullYear();
+    document.querySelector("footer").textContent = `© ${currentYear} - All rights reserved`;
+}
+
+
+
 menuHandler();
 greetingHandler();
+weatherHandler();
 clockHandler();
 galleryHandler();
+productsHandler();
+footerHandler();
